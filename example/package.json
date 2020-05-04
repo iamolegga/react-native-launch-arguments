@@ -5,7 +5,10 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "start": "react-native start"
+    "start": "react-native start",
+    "test": "npm run detox:ios && npm run detox:android",
+    "detox:ios": "detox build -c ios && detox test -c ios",
+    "detox:android": "detox build -c android && detox test -c android"
   },
   "dependencies": {
     "react": "16.11.0",

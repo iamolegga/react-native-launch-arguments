@@ -5,10 +5,7 @@
   "description": "React Native module for getting launch arguments",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
-    "test": "npm run detox:ios && npm run detox:android",
-    "detox:ios": "detox build -c ios && detox test -c ios",
-    "detox:android": "detox build -c android && detox test -c android"
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
