@@ -1,0 +1,40 @@
+{
+  "name": "react-native-launch-arguments",
+  "title": "React Native Launch Arguments",
+  "version": "1.0.0",
+  "description": "React Native module for getting launch arguments",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "npm run detox:ios && npm run detox:android",
+    "detox:ios": "detox build -c ios && detox test -c ios",
+    "detox:android": "detox build -c android && detox test -c android"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iamolegga/react-native-launch-arguments.git",
+    "baseUrl": "https://github.com/iamolegga/react-native-launch-arguments"
+  },
+  "keywords": [
+    "react",
+    "native",
+    "react-native",
+    "launch",
+    "arguments"
+  ],
+  "author": {
+    "name": "iamolegga",
+    "email": "iamolegga@gmail.com"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^16.8.1",
+    "react-native": ">=0.60.0-rc.0 <1.0.x"
+  },
+  "devDependencies": {
+    "@types/react-native": "^0.62.5",
+    "react": "^16.9.0",
+    "react-native": "^0.62.2",
+    "typescript": "^3.8.3"
+  }
+}

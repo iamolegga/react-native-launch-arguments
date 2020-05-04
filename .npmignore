@@ -1,0 +1,7 @@
+example/
+src/
+android/build/
+.gitattributes
+*.iml
+tsconfig.json
+xcuserdata
