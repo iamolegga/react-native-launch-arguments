@@ -1,5 +1,7 @@
 package com.reactnativelauncharguments;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -29,15 +31,21 @@ public class LaunchArgumentsModule extends ReactContextBaseJavaModule {
 
     @Override
     public Map<String, Object> getConstants() {
-        Bundle bundle = getCurrentActivity().getIntent().getBundleExtra("launchArgs");
         Map<String, Object> map = new HashMap();
 
-        if (bundle != null) {
-            Set<String> ks = bundle.keySet();
-            Iterator<String> iterator = ks.iterator();
-            while (iterator.hasNext()) {
-                String key = iterator.next();
-                map.put(key, bundle.getString(key));
+        Activity activity = getCurrentActivity();
+        if (activity != null) {
+            Intent intent = activity.getIntent();
+            if (intent != null) {
+                Bundle bundle = intent.getBundleExtra("launchArgs");
+                if (bundle != null) {
+                    Set<String> ks = bundle.keySet();
+                    Iterator<String> iterator = ks.iterator();
+                    while (iterator.hasNext()) {
+                        String key = iterator.next();
+                        map.put(key, bundle.getString(key));
+                    }
+                }
             }
         }
 
