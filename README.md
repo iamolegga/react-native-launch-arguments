@@ -1,6 +1,6 @@
 # react-native-launch-arguments
 
-Make passing parameters from testing tool to react native super easy. 
+React Native module to get launch arguments. Make passing parameters from testing tool to react native super easy. 
 
 Mostly it's made for using 
 * [`launchArgs parameter of device.launchApp method`](https://github.com/wix/Detox/blob/master/docs/APIRef.DeviceObjectAPI.md#7-additional-launch-arguments) of [Detox](https://github.com/wix/Detox/)
