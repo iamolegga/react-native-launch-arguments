@@ -45,6 +45,12 @@ public class LaunchArgumentsModule extends ReactContextBaseJavaModule {
                         String key = iterator.next();
                         map.put(key, bundle.getString(key));
                     }
+
+                //ADB CLI can't pass bundle only "extras"
+                String strValue = intent.getStringExtra("launchArgs");
+                    if (strValue != null) {
+                            map.put("launchArgs", strValue);
+                    }
                 }
             }
         }
