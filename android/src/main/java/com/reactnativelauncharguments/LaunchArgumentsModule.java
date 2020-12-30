@@ -30,26 +30,31 @@ public class LaunchArgumentsModule extends ReactContextBaseJavaModule {
     }
 
     @Override
-    public Map<String, Object> getConstants() {
-        Map<String, Object> map = new HashMap();
+    public Map < String, Object > getConstants() {
+        Map < String, Object > map = new HashMap();
 
         Activity activity = getCurrentActivity();
         if (activity != null) {
             Intent intent = activity.getIntent();
             if (intent != null) {
-                Bundle bundle = intent.getBundleExtra("launchArgs");
-                if (bundle != null) {
-                    Set<String> ks = bundle.keySet();
-                    Iterator<String> iterator = ks.iterator();
-                    while (iterator.hasNext()) {
-                        String key = iterator.next();
-                        map.put(key, bundle.getString(key));
-                    }
-
-                //ADB CLI can't pass bundle only "extras"
-                String strValue = intent.getStringExtra("launchArgs");
-                    if (strValue != null) {
-                            map.put("launchArgs", strValue);
+                //parse all extras
+                Bundle bundleExtras = intent.getExtras();
+                if (bundleExtras != null) {
+                    for (String key: bundleExtras.keySet()) {
+                        //bundle inside bundle put by detox
+                        if ("launchArgs".equals(key)) {
+                            Bundle bundle = intent.getBundleExtra(key);
+                            if (bundle != null) {
+                                Set < String > ks = bundle.keySet();
+                                Iterator < String > iterator = ks.iterator();
+                                while (iterator.hasNext()) {
+                                    String innerkey = iterator.next();
+                                    map.put(innerkey, bundle.getString(innerkey));
+                                }
+                            }
+                        } else {
+                            map.put(key, bundleExtras.get(key));
+                        }
                     }
                 }
             }
