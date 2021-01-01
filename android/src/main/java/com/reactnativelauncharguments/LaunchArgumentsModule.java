@@ -1,3 +1,4 @@
+
 package com.reactnativelauncharguments;
 
 import android.app.Activity;
@@ -30,29 +31,27 @@ public class LaunchArgumentsModule extends ReactContextBaseJavaModule {
     }
 
     @Override
-    public Map < String, Object > getConstants() {
-        Map < String, Object > map = new HashMap();
+    public Map<String, Object> getConstants() {
+        Map<String, Object> map = new HashMap();
 
         Activity activity = getCurrentActivity();
         if (activity != null) {
             Intent intent = activity.getIntent();
             if (intent != null) {
-                //parse all extras
+                Bundle bundle = intent.getBundleExtra("launchArgs");
+                if (bundle != null) {
+                    Set<String> ks = bundle.keySet();
+                    Iterator<String> iterator = ks.iterator();
+                    while (iterator.hasNext()) {
+                        String key = iterator.next();
+                        map.put(key, bundle.getString(key));
+                    }
+                }
+                //for CLI ADB params
                 Bundle bundleExtras = intent.getExtras();
                 if (bundleExtras != null) {
-                    for (String key: bundleExtras.keySet()) {
-                        //bundle inside bundle put by detox
-                        if ("launchArgs".equals(key)) {
-                            Bundle bundle = intent.getBundleExtra(key);
-                            if (bundle != null) {
-                                Set < String > ks = bundle.keySet();
-                                Iterator < String > iterator = ks.iterator();
-                                while (iterator.hasNext()) {
-                                    String innerkey = iterator.next();
-                                    map.put(innerkey, bundle.getString(innerkey));
-                                }
-                            }
-                        } else {
+                    for (String key : bundleExtras.keySet()) {
+                        if (!"launchArgs".equals(key)) {
                             map.put(key, bundleExtras.get(key));
                         }
                     }
