@@ -1,3 +1,4 @@
+
 package com.reactnativelauncharguments;
 
 import android.app.Activity;
@@ -44,6 +45,15 @@ public class LaunchArgumentsModule extends ReactContextBaseJavaModule {
                     while (iterator.hasNext()) {
                         String key = iterator.next();
                         map.put(key, bundle.getString(key));
+                    }
+                }
+                //for CLI ADB params
+                Bundle bundleExtras = intent.getExtras();
+                if (bundleExtras != null) {
+                    for (String key : bundleExtras.keySet()) {
+                        if (!"launchArgs".equals(key)) {
+                            map.put(key, bundleExtras.get(key));
+                        }
                     }
                 }
             }
