@@ -11,6 +11,8 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 
+import java.io.Serializable;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -52,7 +54,11 @@ public class LaunchArgumentsModule extends ReactContextBaseJavaModule {
                 if (bundleExtras != null) {
                     for (String key : bundleExtras.keySet()) {
                         if (!"launchArgs".equals(key)) {
-                            map.put(key, bundleExtras.get(key));
+                            if(!Serializable.class.isInstance(bundleExtras.get(key))) {
+                                map.put(key, bundleExtras.getString(key));
+                            } else {
+                                map.put(key, bundleExtras.get(key));
+                            }
                         }
                     }
                 }
