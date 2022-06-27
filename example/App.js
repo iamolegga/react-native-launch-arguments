@@ -1,12 +1,36 @@
-import React from "react";
-import { View, StatusBar, StyleSheet, Text, Alert } from "react-native";
-import { LaunchArguments } from "react-native-launch-arguments";
-import { stringifyPair } from "./stringifyPair";
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ * @flow strict-local
+ */
 
-const App = () => {
+import React from 'react';
+import type {Node} from 'react';
+import {
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  useColorScheme,
+  View,
+} from 'react-native';
+import {LaunchArguments} from 'react-native-launch-arguments';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
+
+import {stringifyPair} from './stringifyPair';
+
+export default function App(): Node {
+  const isDarkMode = useColorScheme() === 'dark';
+
+  const backgroundStyle = {
+    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  };
+
   return (
-    <>
-      <StatusBar barStyle="dark-content" />
+    <SafeAreaView style={backgroundStyle}>
+      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <View style={styles.container}>
         {Object.entries(LaunchArguments.value()).map(([k, v]) => (
           <Text key={k} style={styles.sectionDescription}>
@@ -14,21 +38,19 @@ const App = () => {
           </Text>
         ))}
       </View>
-    </>
+    </SafeAreaView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   sectionDescription: {
     marginTop: 8,
     fontSize: 18,
-    fontWeight: "400",
-    textAlign: "center",
+    fontWeight: '400',
+    textAlign: 'center',
   },
 });
-
-export default App;

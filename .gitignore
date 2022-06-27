@@ -61,3 +61,6 @@ buck-out/
 
 # build files
 dist
+
+# npm pack of local library version for example app
+example/*.tgz
