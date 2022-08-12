@@ -5,6 +5,13 @@ React Native module to get launch arguments. Make passing parameters from testin
 Mostly it's made for using
 * [`launchArgs parameter of device.launchApp method`](https://github.com/wix/Detox/blob/master/docs/APIRef.DeviceObjectAPI.md#7-additional-launch-arguments) of [Detox](https://github.com/wix/Detox/)
 * [`optionalIntentArguments (Android)` and `processArguments (iOS)`](http://appium.io/docs/en/writing-running-appium/caps/) parameters with [Appium](http://appium.io/)
+   ```tsx
+   capabilities: {
+     optionalIntentArguments: `--ez myBool true --es myStr 'string text'`, // Android
+     processArguments: {args : ['-myBool', 'true','-myStr', 'string text']}, // iOS
+   }
+   ```
+
 
 **iOS**: it takes data from `[[NSProcessInfo processInfo] arguments]`
 
