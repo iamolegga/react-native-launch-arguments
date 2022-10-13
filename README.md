@@ -44,3 +44,19 @@ interface MyExpectedArgs {
 }
 LaunchArguments.value<MyExpectedArgs>();
 ```
+
+## Verifying install
+
+To launch the app with arguments, verifying your install, you can:
+
+### iPhone simulator
+
+You can use `xcrun` to boot your app on the simulator.
+
+The following command-line will load your app on the booted iOS simulator. Just
+replace `com.MyAppBundleId` with your Bundle Identifier, and the `params` with
+your params.
+
+```bash
+xcrun simctl launch booted com.MyAppBundleId -noParams -param "hello"
+```
