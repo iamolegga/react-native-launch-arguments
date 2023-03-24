@@ -53,7 +53,7 @@ public class LaunchArgumentsModule extends ReactContextBaseJavaModule {
                 Bundle bundleExtras = intent.getExtras();
                 if (bundleExtras != null) {
                     for (String key : bundleExtras.keySet()) {
-                        if (!"launchArgs".equals(key)) {
+                        if (!"launchArgs".equals(key) && !"android.nfc.extra.NDEF_MESSAGES".equals(key)) {
                             if(!Serializable.class.isInstance(bundleExtras.get(key))) {
                                 map.put(key, bundleExtras.getString(key));
                             } else {
