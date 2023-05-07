@@ -11,7 +11,16 @@ Mostly it's made for using
      processArguments: {args : ['-myBool', 'true','-myStr', 'string text']}, // iOS
    }
    ```
-
+* [`arguments parameter of launchApp command`](https://maestro.mobile.dev/api-reference/commands/launchapp#launch-arguments) of [Maestro](https://maestro.mobile.dev/)
+  ```yaml
+  - launchApp:
+      appId: "com.example.app"
+      arguments: 
+         foo: "This is a string"
+         isFooEnabled: false
+         fooValue: 3.24
+         fooInt: 3
+  ```
 
 **iOS**: it takes data from `[[NSProcessInfo processInfo] arguments]`
 
