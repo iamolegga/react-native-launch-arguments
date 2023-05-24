@@ -2,8 +2,8 @@
 
 React Native module to get launch arguments. Make passing parameters from testing tool to react native super easy.
 
-Mostly it's made for using
-* [`launchArgs parameter of device.launchApp method`](https://wix.github.io/Detox/docs/api/device/#deviceapplaunchargs) of [Detox](https://github.com/wix/Detox/)
+Mostly it's made for using:
+* [`launchArgs parameter of device.launchApp method`](https://wix.github.io/Detox/docs/api/device/#7-launchargsadditional-process-launch-arguments) of [Detox](https://github.com/wix/Detox/) (see the [launch arguments guide](https://wix.github.io/Detox/docs/guide/launch-args) for full details)
 * [`optionalIntentArguments (Android)` and `processArguments (iOS)`](http://appium.io/docs/en/writing-running-appium/caps/) parameters with [Appium](http://appium.io/)
    ```tsx
    capabilities: {
@@ -53,6 +53,10 @@ interface MyExpectedArgs {
 }
 LaunchArguments.value<MyExpectedArgs>();
 ```
+
+## Caveats
+
+Due to React Native [issue #37518](https://github.com/facebook/react-native/issues/37518), on Android, the module force-waits for the Android activity to reach the [RESUMED state](https://developer.android.com/guide/components/activities/activity-lifecycle#alc), before moving foward with native-modules initialization completion. While commonly the wait is scarce (the activity is already in the resumed state at this point), until the RN issue is fixed, the module may introduce delays in app loading time in some edge cases.
 
 ## Verifying install
 
