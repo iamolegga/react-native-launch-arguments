@@ -5,24 +5,19 @@ import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class LaunchArgumentsPackage implements ReactPackage {
-
+    
     @Override
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
         return Collections.emptyList();
     }
 
     @Override
-    public List<NativeModule> createNativeModules(
-            ReactApplicationContext reactContext) {
-        List<NativeModule> modules = new ArrayList<>();
-
-        modules.add(new LaunchArgumentsModule(reactContext));
-
-        return modules;
+    public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
+        final NativeModule nativeModule = new LaunchArgumentsModule(reactContext);
+        return Collections.singletonList(nativeModule);
     }
 }
