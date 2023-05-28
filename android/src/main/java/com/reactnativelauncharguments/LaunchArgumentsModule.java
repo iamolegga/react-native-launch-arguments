@@ -26,15 +26,6 @@ public class LaunchArgumentsModule extends ReactContextBaseJavaModule {
         super(context);
     }
 
-    @Override
-    public void initialize() {
-        super.initialize();
-
-        // This is work-around for the RN problem described here:
-        // https://github.com/facebook/react-native/issues/37518
-        waitForActivity();
-    }
-
     @NonNull
     @Override
     public String getName() {
@@ -44,6 +35,10 @@ public class LaunchArgumentsModule extends ReactContextBaseJavaModule {
     @Nullable
     @Override
     public Map<String, Object> getConstants() {
+        // This is work-around for the RN problem described here:
+        // https://github.com/facebook/react-native/issues/37518
+        waitForActivity();
+
         return new HashMap<String, Object>() {{
             // In iOS hashmap returns inside another one, because constants
             // not visible. So, for consistency here do the same.
