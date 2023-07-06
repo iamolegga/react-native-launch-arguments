@@ -91,11 +91,13 @@ public class LaunchArgumentsModule extends ReactContextBaseJavaModule {
         if (bundleExtras != null) {
             for (String key : bundleExtras.keySet()) {
                 if (!DETOX_LAUNCH_ARGS_KEY.equals(key) && !"android.nfc.extra.NDEF_MESSAGES".equals(key)) {
-
-                    if (!(bundleExtras.get(key) instanceof Serializable)) {
-                        map.put(key, bundleExtras.getString(key));
-                    } else {
+                    if ((bundleExtras.get(key) instanceof Integer
+                            || bundleExtras.get(key) instanceof Double
+                            || bundleExtras.get(key) instanceof Boolean
+                            || bundleExtras.get(key) instanceof String)) {
                         map.put(key, bundleExtras.get(key));
+                    } else {
+                        map.put(key, bundleExtras.getString(key));
                     }
                 }
             }
