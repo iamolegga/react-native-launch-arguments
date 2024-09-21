@@ -64,6 +64,16 @@ The intended use is with end-to-end tools like Detox.
          fooInt: 3
   ```
 
+#### **XCode**
+* [`XCode Launch Args`](https://developer.apple.com/documentation/xcode/customizing-the-build-schemes-for-a-project#Specify-launch-arguments-and-environment-variables)
+* In XCode add launch arguments on the "Arguments" tab in the "Run" section of the Scheme editor:
+    * Product -> Scheme -> Edit Scheme... -> Run -> Arguments tab -> Arguments Passed On Launch
+    * Set each arg witha preceding `-`.
+    * For example if you want to set arg `hello` to `"world"` to receive a LaunchArgs instance of`{ "hello":"world" }`, you would enter the following into the entry space for the arg:
+  ```
+  -hello "world"
+  ```
+
 ## Platform-specific Notes
 
 ### iOS
