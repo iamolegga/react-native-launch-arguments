@@ -35,9 +35,12 @@ public class LaunchArgumentsModule extends ReactContextBaseJavaModule {
     @Nullable
     @Override
     public Map<String, Object> getConstants() {
-        // This is work-around for the RN problem described here:
-        // https://github.com/facebook/react-native/issues/37518
-        waitForActivity();
+        // When the app is killed, it doesn't start the activity so no need to wait for it
+        if (!isAppKilled()) {
+            // This is work-around for the RN problem described here:
+            // https://github.com/facebook/react-native/issues/37518
+            waitForActivity();
+        }
 
         return new HashMap<String, Object>() {{
             // In iOS hashmap returns inside another one, because constants
@@ -114,5 +117,25 @@ public class LaunchArgumentsModule extends ReactContextBaseJavaModule {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    private boolean isAppKilled() {
+        ActivityManager activityManager = (ActivityManager) getReactApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> appProcesses = activityManager.getRunningAppProcesses();
+
+        if (appProcesses == null) {
+            return true; // No processes, app is likely killed
+        }
+
+        final String packageName = getReactApplicationContext().getPackageName();
+        for (ActivityManager.RunningAppProcessInfo appProcess : appProcesses) {
+            if (appProcess.processName.equals(packageName)) {
+                // App process is found, app is not killed
+                return false;
+            }
+        }
+
+        // App process not found, app is killed
+        return false;
     }
 }
