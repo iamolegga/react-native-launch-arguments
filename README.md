@@ -98,4 +98,10 @@ It takes data from `currentActivity.getIntent().getBundleExtra("launchArgs")` fo
 
 #### Caveats on Android
 
+##### React-Native
+
 Due to React Native [issue #37518](https://github.com/facebook/react-native/issues/37518), on Android, the module force-waits for the Android activity to reach the [RESUMED state](https://developer.android.com/guide/components/activities/activity-lifecycle#alc), before moving foward with native-modules initialization completion. While commonly the wait is scarce (the activity is already in the resumed state at this point), until the RN issue is fixed, the module may introduce delays in app loading time in some edge cases.
+
+##### Expo
+
+There is [know `expo` bug](https://github.com/expo/expo/issues/31830) with empty passed arguments.
