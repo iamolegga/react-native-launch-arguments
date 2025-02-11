@@ -71,6 +71,17 @@ RCT_EXPORT_MODULE()
 			argsdict[[self cleanValue:current]] = arguments[i+1];
 			i++;
 		}
+
+		// maestro bare words as keys
+		else {
+			NSString *next = (i + 1 < arguments.count) ? arguments[i+1] : nil;
+			if(!next || [self isKey:next]){
+				argsdict[current] = truthy;
+			} else {
+				argsdict[current] = next;
+				i++;
+			}
+		}
 	}
 
 	return [NSDictionary dictionaryWithDictionary:argsdict];
