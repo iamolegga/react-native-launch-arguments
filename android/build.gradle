@@ -26,11 +26,6 @@ buildscript {
     }
 }
 
-plugins {
-    id('com.android.library')
-    id('maven-publish')
-}
-
 def DEFAULT_COMPILE_SDK_VERSION = 28
 def DEFAULT_BUILD_TOOLS_VERSION = '28.0.3'
 def DEFAULT_MIN_SDK_VERSION = 18
@@ -40,9 +35,16 @@ def safeExtGet(prop, fallback) {
     rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
 }
 
+apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
+apply plugin: 'com.facebook.react'
+
 android {
     compileSdkVersion safeExtGet('compileSdkVersion', DEFAULT_COMPILE_SDK_VERSION)
     buildToolsVersion safeExtGet('buildToolsVersion', DEFAULT_BUILD_TOOLS_VERSION)
+
+    namespace "com.reactnativelauncharguments"
+
     defaultConfig {
         minSdkVersion safeExtGet('minSdkVersion', DEFAULT_MIN_SDK_VERSION)
         targetSdkVersion safeExtGet('targetSdkVersion', DEFAULT_TARGET_SDK_VERSION)
@@ -66,6 +68,7 @@ repositories {
         url "$rootDir/../node_modules/jsc-android/dist"
     }
     google()
+    mavenCentral()
 }
 
 dependencies {

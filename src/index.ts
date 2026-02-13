@@ -1,4 +1,5 @@
 import { NativeModules, Platform } from "react-native";
+import NativeLaunchArguments, { Spec } from "./NativeLaunchArguments";
 
 const LINKING_ERROR =
   `The package 'react-native-launch-arguments' doesn't seem to be linked. Make sure: \n\n` +
@@ -6,7 +7,9 @@ const LINKING_ERROR =
   "- You rebuilt the app after installing the package\n" +
   "- You are not using Expo managed workflow\n";
 
-const LaunchArgumentsModule = NativeModules.LaunchArguments
+const LaunchArgumentsModule: Spec = (NativeLaunchArguments
+  ? NativeLaunchArguments
+  : NativeModules.LaunchArguments
   ? NativeModules.LaunchArguments
   : new Proxy(
       {},
@@ -15,7 +18,7 @@ const LaunchArgumentsModule = NativeModules.LaunchArguments
           throw new Error(LINKING_ERROR);
         },
       }
-    );
+    )) as Spec;
 
 type RawMap = Record<string, string>;
 
@@ -35,7 +38,7 @@ export const LaunchArguments: LaunchArgumentsType = {
 
     parsed = {};
 
-    const raw = LaunchArgumentsModule.value as RawMap;
+    const raw = LaunchArgumentsModule.getConstants().value as RawMap;
 
     for (const k in raw) {
       const rawValue = raw[k];

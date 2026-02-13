@@ -1,4 +1,15 @@
 {
-  "name": "example",
-  "displayName": "example"
+  "expo": {
+    "name": "example",
+    "slug": "example",
+    "android": {
+      "package": "com.artsy_mobile.example"
+    },
+    "ios": {
+      "bundleIdentifier": "com.artsy-mobile.example"
+    },
+    "plugins": [
+      "@config-plugins/detox"
+    ]
+  }
 }

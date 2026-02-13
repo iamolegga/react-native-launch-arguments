@@ -6,19 +6,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.facebook.fbreact.specs.NativeLaunchArgumentsSpec;
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContextBaseJavaModule;
-import com.facebook.react.bridge.ReactMethod;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-public class LaunchArgumentsModule extends ReactContextBaseJavaModule {
+public class LaunchArgumentsModule extends NativeLaunchArgumentsSpec {
 
     private static final long ACTIVITY_WAIT_INTERVAL = 100L;
     private static final int ACTIVITY_WAIT_TRIES = 200;
@@ -29,15 +24,8 @@ public class LaunchArgumentsModule extends ReactContextBaseJavaModule {
         super(context);
     }
 
-    @NonNull
     @Override
-    public String getName() {
-        return "LaunchArguments";
-    }
-
-    @Nullable
-    @Override
-    public Map<String, Object> getConstants() {
+    protected Map<String, Object> getTypedExportedConstants() {
         // When the app is killed, it doesn't start the activity so no need to wait for it
         if (!isAppKilled()) {
             // This is work-around for the RN problem described here:
@@ -51,13 +39,6 @@ public class LaunchArgumentsModule extends ReactContextBaseJavaModule {
             put("value", parseIntentExtras());
         }};
     }
-
-    /**
-     * Looks like a bug in RN, without it this module is invisible
-     * in NativeModules.
-     */
-    @ReactMethod
-    public void foo() {}
 
     private void waitForActivity() {
         for (int tries = 0; tries < ACTIVITY_WAIT_TRIES && !isActivityReady(); tries++) {
